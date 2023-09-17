@@ -2,6 +2,15 @@
 <!-- These are atlas torso and limb models, for full Atlas robot model, please see
      xacro files containing fully assembed robots in ocs2_pros_gazebo2/robots/ -->
 <robot name="pros_walker">
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
+    <material name="blue">
+        <color rgba="0.0 0.0 0.8 1.0"/>
+    </material>
+    <material name="green">
+        <color rgba="0.0 0.8 0.0 1.0"/>
+    </material>
     <link name="l_foot">
         <inertial>
             <mass value="1.634" />
@@ -307,6 +316,7 @@
         </collision>
         -->
     </link>
+
 
     <link name="r_lglut">
         <inertial>
@@ -618,4 +628,291 @@
         <limit effort="110" velocity="12" lower="-1.14" upper="0.32" />
         <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.14" soft_upper_limit="10.32" />
     </joint>
+
+
+    <joint name="fp1_fixed_r_foot" type="fixed">
+        <parent link="r_foot"/>
+        <child link="fp1_r"/>
+        <origin rpy="0 0 0" xyz="0.18 0.03 -0.08"/>
+    </joint>
+    <!-- Foot link -->
+    <link name="fp1_r">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <!-- Adapter collision -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <!-- Foot collision -->
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link>
+
+    <joint name="fp2_fixed_r_foot" type="fixed">
+        <parent link="r_foot"/>
+        <child link="fp2_r"/>
+        <origin rpy="0 0 0" xyz="0.18 -0.03 -0.08"/>
+    </joint>
+    <!-- Foot link -->
+    <link name="fp2_r">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <!-- Adapter collision -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <!-- Foot collision -->
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link>
+
+    <joint name="fp3_fixed_r_foot" type="fixed">
+        <parent link="r_foot"/>
+        <child link="fp3_r"/>
+        <origin rpy="0 0 0" xyz="-0.08 0.035 -0.08"/>
+    </joint>
+    <!-- Foot link -->
+    <link name="fp3_r">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <!-- Adapter collision -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <!-- Foot collision -->
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link>
+    <joint name="fp4_fixed_r_foot" type="fixed">
+        <parent link="r_foot"/>
+        <child link="fp4_r"/>
+        <origin rpy="0 0 0" xyz="-0.08 -0.035 -0.08"/>
+    </joint>
+    <!-- Foot link -->
+    <link name="fp4_r">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <!-- Adapter collision -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <!-- Foot collision -->
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link>
+
+    <joint name="fp1_fixed_l_foot" type="fixed">
+        <parent link="l_foot"/>
+        <child link="fp1_l"/>
+        <origin rpy="0 0 0" xyz="0.18 0.03 -0.08"/>
+    </joint>
+    <!-- Foot link -->
+    <link name="fp1_l">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <!-- Adapter collision -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <!-- Foot collision -->
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link>
+
+    <joint name="fp2_fixed_l_foot" type="fixed">
+        <parent link="l_foot"/>
+        <child link="fp2_l"/>
+        <origin rpy="0 0 0" xyz="0.18 -0.03 -0.08"/>
+    </joint>
+    <!-- Foot link -->
+    <link name="fp2_l">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <!-- Adapter collision -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <!-- Foot collision -->
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link>
+
+    <joint name="fp3_fixed_l_foot" type="fixed">
+        <parent link="l_foot"/>
+        <child link="fp3_l"/>
+        <origin rpy="0 0 0" xyz="-0.08 0.035 -0.08"/>
+    </joint>
+    <!-- Foot link -->
+    <link name="fp3_l">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <!-- Adapter collision -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <!-- Foot collision -->
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link>
+    <joint name="fp4_fixed_l_foot" type="fixed">
+        <parent link="l_foot"/>
+        <child link="fp4_l"/>
+        <origin rpy="0 0 0" xyz="-0.08 -0.035 -0.08"/>
+    </joint>
+    <!-- Foot link -->
+    <link name="fp4_l">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <!-- Adapter collision -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <!-- Foot collision -->
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link>
+
+
+
+
+
+
+
+
 </robot>
