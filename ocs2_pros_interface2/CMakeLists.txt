@@ -52,6 +52,7 @@ catkin_package(
 ## Build ##
 ###########
 
+# Resolve for the package path at compile time.
 include_directories(
   include
   ${pinocchio_INCLUDE_DIRS}
@@ -66,7 +67,24 @@ link_directories(
 
 # Legged robot interface library
 add_library(${PROJECT_NAME}
+  src/common/ModelSettings.cpp
+  src/dynamics/LeggedRobotDynamicsAD.cpp
+  src/constraint/EndEffectorLinearConstraint.cpp
+  src/constraint/FrictionConeConstraint.cpp
+  src/constraint/ZeroForceConstraint.cpp
+  src/constraint/NormalVelocityConstraintCppAd.cpp
+  src/constraint/ZeroVelocityConstraintCppAd.cpp
+  src/initialization/LeggedRobotInitializer.cpp
+  src/reference_manager/SwitchedModelReferenceManager.cpp
+  src/foot_planner/CubicSpline.cpp
+  src/foot_planner/SplineCpg.cpp
+  src/foot_planner/SwingTrajectoryPlanner.cpp
+  src/gait/Gait.cpp
+  src/gait/GaitSchedule.cpp
+  src/gait/LegLogic.cpp
+  src/gait/ModeSequenceTemplate.cpp
   src/ProsWalkerInterface.cpp
+  src/ProsPreComputation.cpp
 )
 add_dependencies(${PROJECT_NAME}
   ${catkin_EXPORTED_TARGETS}
@@ -109,3 +127,27 @@ install(DIRECTORY include/${PROJECT_NAME}/
 install(DIRECTORY config
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
+## Info ==============================
+## to run tests, cd package folder and run
+## $ catkin build -DCMAKE_BUILD_TYPE=RelWithDebInfo --this
+## $ catkin run_tests --no-deps --this
+## to see the summary of unit test results run
+## $ catkin_test_results ../../../build/ocs2_cartpole
+
+catkin_add_gtest(${PROJECT_NAME}_test
+  test/AnymalFactoryFunctions.cpp
+  test/constraint/testEndEffectorLinearConstraint.cpp
+  test/constraint/testFrictionConeConstraint.cpp
+  test/constraint/testZeroForceConstraint.cpp
+)
+target_include_directories(${PROJECT_NAME}_test PRIVATE
+  test/include
+  ${PROJECT_BINARY_DIR}/include
+)
+target_link_libraries(${PROJECT_NAME}_test
+  gtest_main
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+)
+target_compile_options(${PROJECT_NAME}_test PRIVATE ${FLAGS})

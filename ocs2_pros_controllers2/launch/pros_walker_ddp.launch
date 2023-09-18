@@ -7,18 +7,18 @@
     <arg name="multiplot"          default="false"/>
 
     <!-- The task file for the mpc. -->
-    <arg name="taskFile"          default="$(find ocs2_legged_robot)/config/mpc/task.info"/>
+    <arg name="taskFile"          default="$(find ocs2_pros_controllers2)/config/mpc/task.info"/>
     <!-- The reference related config file of the robot -->
-    <arg name="referenceFile"     default="$(find ocs2_legged_robot)/config/command/reference.info"/>
+    <arg name="referenceFile"     default="$(find ocs2_pros_controllers2)/config/reference.info"/>
     <!-- The URDF model of the robot -->
-    <arg name="urdfFile"          default="$(find ocs2_robotic_assets)/resources/anymal_c/urdf/anymal.urdf"/>
+    <arg name="urdfFile"          default="$(find ocs2_pros_gazebo2)/urdf/pros_walker.urdf"/>
     <!-- The file defining gait definition -->
-    <arg name="gaitCommandFile"   default="$(find ocs2_legged_robot)/config/command/gait.info"/>
+    <arg name="gaitCommandFile"   default="$(find ocs2_pros_controllers2)/config/gait.info"/>
 
     <!-- rviz -->
     <group if="$(arg rviz)">
       <param name="$(arg description_name)" textfile="$(arg urdfFile)"/>
-      <arg name="rvizconfig" default="$(find ocs2_legged_robot_ros)/rviz/legged_robot.rviz" />
+      <arg name="rvizconfig" default="$(find ocs2_pros_gazebo2)/rviz/legged_robot.rviz" />
       <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rvizconfig)" output="screen" />
     </group>
 
@@ -33,16 +33,8 @@
     <param name="referenceFile"     value="$(arg referenceFile)" />
     <param name="urdfFile"          value="$(arg urdfFile)" />
     <param name="gaitCommandFile"   value="$(arg gaitCommandFile)"/>
-
-    <node pkg="ocs2_legged_robot_ros" type="legged_robot_ddp_mpc" name="legged_robot_ddp_mpc"
+    <!-- <node pkg="ocs2_pros_controllers2" type="pros_walker_ddp_mpc" name="pros_walker_ddp_mpc"
+          output="screen" launch-prefix=""/> -->
+    <node pkg="ocs2_pros_controllers2" type="pros_walker_dummy" name="pros_walker_dummy"
           output="screen" launch-prefix=""/>
-
-    <node pkg="ocs2_legged_robot_ros" type="legged_robot_dummy" name="legged_robot_dummy"
-          output="screen" launch-prefix="gnome-terminal --"/>
-
-    <node pkg="ocs2_legged_robot_ros" type="legged_robot_target" name="legged_robot_target"
-          output="screen" launch-prefix="gnome-terminal --"/>
-
-    <node pkg="ocs2_legged_robot_ros" type="legged_robot_gait_command" name="legged_robot_gait_command"
-          output="screen" launch-prefix="gnome-terminal --"/>
 </launch>

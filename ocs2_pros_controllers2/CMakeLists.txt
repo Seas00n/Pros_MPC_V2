@@ -23,7 +23,7 @@ set(CATKIN_PACKAGE_DEPENDENCIES
   ocs2_robotic_assets
   ocs2_msgs
   ocs2_ros_interfaces
-#   ocs2_legged_robot
+  ocs2_pros_interface2
 )
 
 find_package(catkin REQUIRED COMPONENTS
@@ -74,35 +74,35 @@ link_directories(
 )
 
 # Main library
-# add_library(${PROJECT_NAME}
-#   src/gait/GaitKeyboardPublisher.cpp
-#   src/gait/GaitReceiver.cpp
-#   src/visualization/LeggedRobotVisualizer.cpp
-# )
-# add_dependencies(${PROJECT_NAME}
-#   ${${PROJECT_NAME}_EXPORTED_TARGETS}
-#   ${catkin_EXPORTED_TARGETS}
-# )
-# target_link_libraries(${PROJECT_NAME}
-#   ${catkin_LIBRARIES}
-#   ${Boost_LIBRARIES}
-# )
-# target_compile_options(${PROJECT_NAME} PUBLIC ${OCS2_CXX_FLAGS})
+add_library(${PROJECT_NAME}
+  src/gait/GaitKeyboardPublisher.cpp
+  src/gait/GaitReceiver.cpp
+  src/visualization/ProsWalkerVisualizer.cpp
+)
+add_dependencies(${PROJECT_NAME}
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+)
+target_compile_options(${PROJECT_NAME} PUBLIC ${OCS2_CXX_FLAGS})
 
 # DDP-MPC node for legged robot
-# add_executable(legged_robot_ddp_mpc
-#   src/LeggedRobotDdpMpcNode.cpp
-# )
-# add_dependencies(legged_robot_ddp_mpc
-#   ${PROJECT_NAME}
-#   ${${PROJECT_NAME}_EXPORTED_TARGETS}
-#   ${catkin_EXPORTED_TARGETS}
-# )
-# target_link_libraries(legged_robot_ddp_mpc
-#   ${PROJECT_NAME}
-#   ${catkin_LIBRARIES}
-# )
-# target_compile_options(legged_robot_ddp_mpc PRIVATE ${OCS2_CXX_FLAGS})
+add_executable(pros_walker_ddp_mpc
+  src/ProsWalkerDdpMpcNode.cpp
+)
+add_dependencies(pros_walker_ddp_mpc
+  ${PROJECT_NAME}
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(pros_walker_ddp_mpc
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
+target_compile_options(pros_walker_ddp_mpc PRIVATE ${OCS2_CXX_FLAGS})
 
 ## SQP-MPC node for legged robot
 # add_executable(legged_robot_sqp_mpc
@@ -135,49 +135,49 @@ link_directories(
 # target_compile_options(legged_robot_ipm_mpc  PRIVATE ${OCS2_CXX_FLAGS})
 
 # Dummy node
-# add_executable(pros_walker_dummy
-#   src/ProsDummyNode.cpp
-# )
-# add_dependencies(pros_walker_dummy
-#   ${PROJECT_NAME}
-#   ${${PROJECT_NAME}_EXPORTED_TARGETS}
-#   ${catkin_EXPORTED_TARGETS}
-# )
-# target_link_libraries(pros_walker_dummy
-#   ${PROJECT_NAME}
-#   ${catkin_LIBRARIES}
-# )
-# target_compile_options(pros_walker_dummy PRIVATE ${OCS2_CXX_FLAGS})
+add_executable(pros_walker_dummy
+  src/ProsWalkerDummyNode.cpp
+)
+add_dependencies(pros_walker_dummy
+  ${PROJECT_NAME}
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(pros_walker_dummy
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
+target_compile_options(pros_walker_dummy PRIVATE ${OCS2_CXX_FLAGS})
 
 # Keyboard command node for target trajectories
-# add_executable(legged_robot_target
-#   src/LeggedRobotPoseCommandNode.cpp
-# )
-# add_dependencies(legged_robot_target
-#   ${PROJECT_NAME}
-#   ${${PROJECT_NAME}_EXPORTED_TARGETS}
-#   ${catkin_EXPORTED_TARGETS}
-# )
-# target_link_libraries(legged_robot_target
-#   ${PROJECT_NAME}
-#   ${catkin_LIBRARIES}
-# )
-# target_compile_options(legged_robot_target PRIVATE ${OCS2_CXX_FLAGS})
+add_executable(pros_walker_target
+  src/ProsWalkerPoseCommandNode.cpp
+)
+add_dependencies(pros_walker_target
+  ${PROJECT_NAME}
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(pros_walker_target
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
+target_compile_options(pros_walker_target PRIVATE ${OCS2_CXX_FLAGS})
 
 # Keyboard command node for gait
-# add_executable(legged_robot_gait_command
-#   src/LeggedRobotGaitCommandNode.cpp
-# )
-# add_dependencies(legged_robot_gait_command
-#   ${PROJECT_NAME}
-#   ${${PROJECT_NAME}_EXPORTED_TARGETS}
-#   ${catkin_EXPORTED_TARGETS}
-# )
-# target_link_libraries(legged_robot_gait_command
-#   ${PROJECT_NAME}
-#   ${catkin_LIBRARIES}
-# )
-# target_compile_options(legged_robot_gait_command PRIVATE ${OCS2_CXX_FLAGS})
+add_executable(pros_walker_gait_command
+  src/ProsWalkerGaitCommandNode.cpp
+)
+add_dependencies(pros_walker_gait_command
+  ${PROJECT_NAME}
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(pros_walker_gait_command
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
+target_compile_options(pros_walker_gait_command PRIVATE ${OCS2_CXX_FLAGS})
 
 #########################
 ###   CLANG TOOLING   ###
@@ -188,11 +188,11 @@ if(cmake_clang_tools_FOUND)
    add_clang_tooling(
      TARGETS
        ${PROJECT_NAME}
-    #    legged_robot_ddp_mpc
-    #    legged_robot_sqp_mpc
-    #    legged_robot_ipm_mpc
-      #  legged_robot_dummy
-    #    legged_robot_target
+       legged_robot_ddp_mpc
+       legged_robot_sqp_mpc
+       legged_robot_ipm_mpc
+       legged_robot_dummy
+       legged_robot_target
        legged_robot_gait_command
      SOURCE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/include
      CT_HEADER_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -203,27 +203,27 @@ endif(cmake_clang_tools_FOUND)
 #############
 ## Install ##
 #############
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-# )
-# install(TARGETS ${PROJECT_NAME}
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-# install(
-#   TARGETS
-#     # legged_robot_ddp_mpc
-#     # legged_robot_sqp_mpc
-#     # legged_robot_ipm_mpc
-#     # legged_robot_dummy
-#     # legged_robot_target
-#     # legged_robot_gait_command
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-# install(DIRECTORY launch rviz
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
+install(TARGETS ${PROJECT_NAME}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+install(
+  TARGETS
+    pros_walker_ddp_mpc
+    # pros_walker_sqp_mpc
+    # pros_walker_ipm_mpc
+    pros_walker_dummy
+    pros_walker_target
+    pros_walker_gait_command
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+install(DIRECTORY launch rviz
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 #############
 ## Testing ##
