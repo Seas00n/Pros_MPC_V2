@@ -135,19 +135,19 @@ link_directories(
 # target_compile_options(legged_robot_ipm_mpc  PRIVATE ${OCS2_CXX_FLAGS})
 
 # Dummy node
-add_executable(pros_walker_dummy
-  src/ProsDummyNode.cpp
-)
-add_dependencies(pros_walker_dummy
-  ${PROJECT_NAME}
-  ${${PROJECT_NAME}_EXPORTED_TARGETS}
-  ${catkin_EXPORTED_TARGETS}
-)
-target_link_libraries(pros_walker_dummy
-  ${PROJECT_NAME}
-  ${catkin_LIBRARIES}
-)
-target_compile_options(pros_walker_dummy PRIVATE ${OCS2_CXX_FLAGS})
+# add_executable(pros_walker_dummy
+#   src/ProsDummyNode.cpp
+# )
+# add_dependencies(pros_walker_dummy
+#   ${PROJECT_NAME}
+#   ${${PROJECT_NAME}_EXPORTED_TARGETS}
+#   ${catkin_EXPORTED_TARGETS}
+# )
+# target_link_libraries(pros_walker_dummy
+#   ${PROJECT_NAME}
+#   ${catkin_LIBRARIES}
+# )
+# target_compile_options(pros_walker_dummy PRIVATE ${OCS2_CXX_FLAGS})
 
 # Keyboard command node for target trajectories
 # add_executable(legged_robot_target
@@ -191,7 +191,7 @@ if(cmake_clang_tools_FOUND)
     #    legged_robot_ddp_mpc
     #    legged_robot_sqp_mpc
     #    legged_robot_ipm_mpc
-       legged_robot_dummy
+      #  legged_robot_dummy
     #    legged_robot_target
        legged_robot_gait_command
      SOURCE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -203,27 +203,27 @@ endif(cmake_clang_tools_FOUND)
 #############
 ## Install ##
 #############
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-)
-install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-install(
-  TARGETS
-    # legged_robot_ddp_mpc
-    # legged_robot_sqp_mpc
-    # legged_robot_ipm_mpc
-    legged_robot_dummy
-    # legged_robot_target
-    # legged_robot_gait_command
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-install(DIRECTORY launch rviz
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
+# install(DIRECTORY include/${PROJECT_NAME}/
+#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+# )
+# install(TARGETS ${PROJECT_NAME}
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+# install(
+#   TARGETS
+#     # legged_robot_ddp_mpc
+#     # legged_robot_sqp_mpc
+#     # legged_robot_ipm_mpc
+#     # legged_robot_dummy
+#     # legged_robot_target
+#     # legged_robot_gait_command
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+# install(DIRECTORY launch rviz
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+# )
 
 #############
 ## Testing ##

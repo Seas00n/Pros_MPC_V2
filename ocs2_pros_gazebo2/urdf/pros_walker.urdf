@@ -235,7 +235,7 @@
           </geometry>
         </collision>
     </link>
-    <link name="pelvis">
+    <link name="base">
         <visual>
             <origin xyz="0 0 0" rpy="0 -0 0" />
             <geometry>
@@ -273,12 +273,12 @@
           </geometry>
         </collision>
     </link>
-    <joint name="pelvis_to_pelvis_inertia" type="fixed">
-        <parent link="pelvis"/>
-        <child link="pelvis_inertia"/>
+    <joint name="base_to_base_inertia" type="fixed">
+        <parent link="base"/>
+        <child link="base_inertia"/>
         <origin rpy="0 0 0" xyz="0 0 0"/>
     </joint>
-    <link name="pelvis_inertia">
+    <link name="base_inertia">
       <inertial>
             <mass value="14.2529" />
             <origin xyz="0.0111 0 0.0271" rpy="0 -0 0" />
@@ -486,7 +486,7 @@
     <joint name="back_lbz" type="revolute">
         <origin xyz="-0.0125 0 0" rpy="0 -0 0" />
         <axis xyz="0 0 1" />
-        <parent link="pelvis" />
+        <parent link="base" />
         <child link="ltorso" />
         <dynamics damping="10" friction="0" />
         <limit effort="124.016" velocity="12" lower="-0.610865" upper="0.610865" />
@@ -558,7 +558,7 @@
     <joint name="l_leg_uhz" type="revolute">
         <origin xyz="0 0.089 0" rpy="0 -0 0" />
         <axis xyz="0 0 1" />
-        <parent link="pelvis" />
+        <parent link="base" />
         <child link="l_uglut" />
         <dynamics damping="1.0" friction="0" />
         <limit effort="110" velocity="12" lower="-0.32" upper="1.14" />
@@ -622,7 +622,7 @@
     <joint name="r_leg_uhz" type="revolute">
         <origin xyz="0 -0.089 0" rpy="0 -0 0" />
         <axis xyz="0 0 1" />
-        <parent link="pelvis" />
+        <parent link="base" />
         <child link="r_uglut" />
         <dynamics damping="1.0" friction="0" />
         <limit effort="110" velocity="12" lower="-1.14" upper="0.32" />
@@ -908,7 +908,37 @@
         </inertial>
     </link>
 
-
+     <!-- <joint name="find_base_fixed" type="fixed">
+        <parent link="base"/>
+        <child link="find_base"/>
+        <origin rpy="0 0 0" xyz="0 0 -0.925"/>
+    </joint>
+    <link name="find_base">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link> -->
 
 
 

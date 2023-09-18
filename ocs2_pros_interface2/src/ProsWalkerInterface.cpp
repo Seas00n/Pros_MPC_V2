@@ -67,21 +67,21 @@ namespace pros_walker {
 LeggedRobotInterface::LeggedRobotInterface(const std::string& taskFile, const std::string& urdfFile, const std::string& referenceFile,
                                            bool useHardFrictionConeConstraint)
     : useHardFrictionConeConstraint_(useHardFrictionConeConstraint) {
-  // check that task file exists
+  // 加载task文件
   boost::filesystem::path taskFilePath(taskFile);
   if (boost::filesystem::exists(taskFilePath)) {
     std::cerr << "[LeggedRobotInterface] Loading task file: " << taskFilePath << std::endl;
   } else {
     throw std::invalid_argument("[LeggedRobotInterface] Task file not found: " + taskFilePath.string());
   }
-  // check that urdf file exists
+  // 加载urdf文件
   boost::filesystem::path urdfFilePath(urdfFile);
   if (boost::filesystem::exists(urdfFilePath)) {
     std::cerr << "[LeggedRobotInterface] Loading Pinocchio model from: " << urdfFilePath << std::endl;
   } else {
     throw std::invalid_argument("[LeggedRobotInterface] URDF file not found: " + urdfFilePath.string());
   }
-  // check that targetCommand file exists
+  // 加载reference文件
   boost::filesystem::path referenceFilePath(referenceFile);
   if (boost::filesystem::exists(referenceFilePath)) {
     std::cerr << "[LeggedRobotInterface] Loading target command settings from: " << referenceFilePath << std::endl;
@@ -117,14 +117,17 @@ void LeggedRobotInterface::setupOptimalConrolProblem(const std::string& taskFile
   pinocchioInterfacePtr_.reset(new PinocchioInterface(centroidal_model::createPinocchioInterface(urdfFile, modelSettings_.jointNames)));
 
   // CentroidalModelInfo
+  // Default Joint State: Remove DOF of base
   centroidalModelInfo_ = centroidal_model::createCentroidalModelInfo(
       *pinocchioInterfacePtr_, centroidal_model::loadCentroidalType(taskFile),
-      centroidal_model::loadDefaultJointState(pinocchioInterfacePtr_->getModel().nq - 6, referenceFile), modelSettings_.contactNames3DoF,
+      centroidal_model::loadDefaultJointState(pinocchioInterfacePtr_->getModel().nq - 6, referenceFile), 
+      modelSettings_.contactNames3DoF,
       modelSettings_.contactNames6DoF);
 
   // Swing trajectory planner
+  // 8 force point->8 feet
   auto swingTrajectoryPlanner =
-      std::make_unique<SwingTrajectoryPlanner>(loadSwingTrajectorySettings(taskFile, "swing_trajectory_config", verbose), 4);
+      std::make_unique<SwingTrajectoryPlanner>(loadSwingTrajectorySettings(taskFile, "swing_trajectory_config", verbose), 8);
 
   // Mode schedule manager
   referenceManagerPtr_ =
