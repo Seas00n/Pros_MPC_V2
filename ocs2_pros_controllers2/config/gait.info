@@ -22,16 +22,16 @@ pace
   modeSequence
   {
     [0]     STANCE
-    [1]     RF
+    [1]     LF
     [2]     STANCE
-    [3]     LF
+    [3]     RF
   }
   switchingTimes
   {
     [0]     0.0
-    [1]     0.28
-    [2]     0.30
-    [3]     0.58
-    [4]     0.60
+    [1]     0.8
+    [2]     1.6
+    [3]     2.4
+    [4]     3.2
   }
 }

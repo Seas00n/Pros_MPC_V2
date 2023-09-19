@@ -53,7 +53,8 @@ namespace pros_walker {
 /******************************************************************************************************/
 /******************************************************************************************************/
 std::unique_ptr<PinocchioInterface> createAnymalPinocchioInterface() {
-  return std::make_unique<PinocchioInterface>(centroidal_model::createPinocchioInterface(URDF_FILE));
+  const ModelSettings modelSettings;
+  return std::make_unique<PinocchioInterface>(centroidal_model::createPinocchioInterface(URDF_FILE, modelSettings.jointNames));
 }
 
 /******************************************************************************************************/
@@ -63,7 +64,7 @@ CentroidalModelInfo createAnymalCentroidalModelInfo(const PinocchioInterface& pi
   const ModelSettings modelSettings;  // default constructor just to get contactNames3DoF
   const auto& model = pinocchioInterface.getModel();
   return centroidal_model::createCentroidalModelInfo(pinocchioInterface, centroidalType,
-                                                     centroidal_model::loadDefaultJointState(10, REFERENCE_FILE),
+                                                     centroidal_model::loadDefaultJointState(12, REFERENCE_FILE),
                                                      modelSettings.contactNames3DoF, modelSettings.contactNames6DoF);
 }
 
@@ -71,6 +72,7 @@ CentroidalModelInfo createAnymalCentroidalModelInfo(const PinocchioInterface& pi
 /******************************************************************************************************/
 /******************************************************************************************************/
 std::shared_ptr<SwitchedModelReferenceManager> createReferenceManager(size_t numFeet) {
+  std::cout<<"num of Feet "<<numFeet<<std::endl;
   const auto initModeSchedule = loadModeSchedule(REFERENCE_FILE, "initialModeSchedule", false);
   const auto defaultModeSequenceTemplate = loadModeSequenceTemplate(REFERENCE_FILE, "defaultModeSequenceTemplate", false);
 

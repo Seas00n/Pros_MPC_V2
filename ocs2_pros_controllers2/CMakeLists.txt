@@ -105,34 +105,34 @@ target_link_libraries(pros_walker_ddp_mpc
 target_compile_options(pros_walker_ddp_mpc PRIVATE ${OCS2_CXX_FLAGS})
 
 ## SQP-MPC node for legged robot
-# add_executable(legged_robot_sqp_mpc
-#   src/LeggedRobotSqpMpcNode.cpp
-# )
-# add_dependencies(legged_robot_sqp_mpc
-#   ${PROJECT_NAME}
-#   ${${PROJECT_NAME}_EXPORTED_TARGETS}
-#   ${catkin_EXPORTED_TARGETS}
-# )
-# target_link_libraries(legged_robot_sqp_mpc
-#   ${PROJECT_NAME}
-#   ${catkin_LIBRARIES}
-# )
-# target_compile_options(legged_robot_sqp_mpc  PRIVATE ${OCS2_CXX_FLAGS})
+add_executable(pros_walker_sqp_mpc
+  src/ProsWalkerSqpMpcNode.cpp
+)
+add_dependencies(pros_walker_sqp_mpc
+  ${PROJECT_NAME}
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(pros_walker_sqp_mpc
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
+target_compile_options(pros_walker_sqp_mpc  PRIVATE ${OCS2_CXX_FLAGS})
 
 ## IPM-MPC node for legged robot
-# add_executable(legged_robot_ipm_mpc
-#   src/LeggedRobotIpmMpcNode.cpp
-# )
-# add_dependencies(legged_robot_ipm_mpc
-#   ${PROJECT_NAME}
-#   ${${PROJECT_NAME}_EXPORTED_TARGETS}
-#   ${catkin_EXPORTED_TARGETS}
-# )
-# target_link_libraries(legged_robot_ipm_mpc
-#   ${PROJECT_NAME}
-#   ${catkin_LIBRARIES}
-# )
-# target_compile_options(legged_robot_ipm_mpc  PRIVATE ${OCS2_CXX_FLAGS})
+add_executable(pros_walker_ipm_mpc
+  src/ProsWalkerIpmMpcNode.cpp
+)
+add_dependencies(pros_walker_ipm_mpc
+  ${PROJECT_NAME}
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(pros_walker_ipm_mpc
+  ${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
+target_compile_options(pros_walker_ipm_mpc PRIVATE ${OCS2_CXX_FLAGS})
 
 # Dummy node
 add_executable(pros_walker_dummy

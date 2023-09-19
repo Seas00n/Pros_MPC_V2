@@ -66,7 +66,8 @@ class testEndEffectorLinearConstraint : public ::testing::Test {
     eeKinematicsAdPtr.reset(new PinocchioEndEffectorKinematicsCppAd(
         *pinocchioInterfacePtr, *pinocchioMappingAdPtr, {modelSettings.contactNames3DoF[0]}, centroidalModelInfo.stateDim,
         centroidalModelInfo.inputDim, velocityUpdateCallback, "EEVel", "/tmp/pros_walker", true, true));
-
+    std::cout << "centroidalModelInfo.stateDim"<<centroidalModelInfo.stateDim << std::endl;
+    std::cout << "centroidalModelInfo.inputDim" << centroidalModelInfo.inputDim << std::endl;
     x.resize(centroidalModelInfo.stateDim);
     x(0) = 0.0;  // vcom_x
     x(1) = 0.0;  // vcom_y
@@ -92,6 +93,8 @@ class testEndEffectorLinearConstraint : public ::testing::Test {
     x(19) = 0.0;
     x(20) = 0.0;
     x(21) = 0.0;
+    x(22) = 0.0;
+    x(23) = 0.0;
 
     u = vector_t::Random(centroidalModelInfo.inputDim);
 
@@ -127,7 +130,9 @@ TEST_F(testEndEffectorLinearConstraint, testValue) {
   auto& data = pinocchioInterfacePtr->getData();
 
   const auto q = pinocchioMappingPtr->getPinocchioJointPosition(x);
+  // std::cerr<<"Joint Position: "<<q<<std::endl;
   updateCentroidalDynamics(*pinocchioInterfacePtr, centroidalModelInfo, q);
+  // std::cerr<<"Input: "<<u<<std::endl;
   const auto v = pinocchioMappingPtr->getPinocchioJointVelocity(x, u);
 
   // For getPosition() & getVelocity() of PinocchioEndEffectorKinematics
@@ -135,7 +140,9 @@ TEST_F(testEndEffectorLinearConstraint, testValue) {
   pinocchio::updateFramePlacements(model, data);
 
   const auto value = eeVelConstraintPtr->getValue(0.0, x, u, preComputation);
+  std::cerr<<"value"<<value<<std::endl;
   const auto valueAd = eeVelConstraintAdPtr->getValue(0.0, x, u, preComputation);
+  std::cerr<<"valueAd"<<valueAd<<std::endl;
 
   EXPECT_TRUE(value.isApprox(valueAd));
 }

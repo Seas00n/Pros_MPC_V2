@@ -55,42 +55,42 @@ enum ModeNumber {  // {LF, RF, LH, RH}
 /******************************************************************************************************/
 /******************************************************************************************************/
 inline contact_flag_t modeNumber2StanceLeg(const size_t& modeNumber) {
-  contact_flag_t stanceLegs;  // {R, R, R, R, L, L, L, L}
+  contact_flag_t stanceLegs;  // {L, R}
 
-  // switch (modeNumber) {
-  //   case 0:
-  //     stanceLegs = contact_flag_t{false, false, false, false,
-  //                                 false, false, false, false};
-  //     break;  // 0:  0-leg-stance
-  //   case 1: 
-  //     stanceLegs = contact_flag_t{true, true, true, true,
-  //                                 false, false, false, false};
-  //     break; // 1:  right-leg-stance
-  //   case 2:
-  //     stanceLegs = contact_flag_t{false, false, false, false,
-  //                                 true, true, true, true};
-  //     break; // 2:  left-leg-stance
-  //   case 3:
-  //     stanceLegs = contact_flag_t{true, true, true, true,
-  //                                 true, true, true, true};
-  //     break; // 3:  2-leg-stance
-  // }
-
-  switch (modeNumber)
-  {
-  case 0:
-    stanceLegs = contact_flag_t{false, false};
-    break; // 0:  0-leg-stance
-  case 1:
-    stanceLegs = contact_flag_t{true, false};
-    break; // 1:  right-leg-stance
-  case 2:
-    stanceLegs = contact_flag_t{false, true};
-    break; // 2:  left-leg-stance
-  case 3:
-    stanceLegs = contact_flag_t{true, true};
-    break; // 3:  2-leg-stance
+  switch (modeNumber) {
+    case 0:
+      stanceLegs = contact_flag_t{false, false, false, false,
+                                  false, false, false, false};
+      break;  // 0:  0-leg-stance
+    case 1: 
+      stanceLegs = contact_flag_t{false, false, false, false,
+                                  true, true, true, true};
+      break; // 1:  right-leg-stance
+    case 2:
+      stanceLegs = contact_flag_t{true, true, true, true,
+                                 false, false, false, false};
+      break; // 2:  left-leg-stance
+    case 3:
+      stanceLegs = contact_flag_t{true, true, true, true,
+                                  true, true, true, true};
+      break; // 3:  2-leg-stance
   }
+
+  // switch (modeNumber)
+  // {
+  // case 0:
+  //   stanceLegs = contact_flag_t{false, false};
+  //   break; // 0:  0-leg-stance
+  // case 1:
+  //   stanceLegs = contact_flag_t{true, false};
+  //   break; // 1:  right-leg-stance
+  // case 2:
+  //   stanceLegs = contact_flag_t{false, true};
+  //   break; // 2:  left-leg-stance
+  // case 3:
+  //   stanceLegs = contact_flag_t{true, true};
+  //   break; // 3:  2-leg-stance
+  // }
 
   return stanceLegs;
 }
@@ -100,7 +100,7 @@ inline contact_flag_t modeNumber2StanceLeg(const size_t& modeNumber) {
 /******************************************************************************************************/
 inline size_t stanceLeg2ModeNumber(const contact_flag_t& stanceLegs) {
   // return static_cast<size_t>(stanceLegs[4]) + 2 * static_cast<size_t>(stanceLegs[0]);
-  return static_cast<size_t>(stanceLegs[1]) + 2 * static_cast<size_t>(stanceLegs[0]);
+  return static_cast<size_t>(stanceLegs[4] || stanceLegs[5] || stanceLegs[6] || stanceLegs[7]) + 2 * static_cast<size_t>(stanceLegs[0] || stanceLegs[1] || stanceLegs[2] || stanceLegs[3]);
 }
 
 /******************************************************************************************************/
@@ -110,8 +110,8 @@ inline std::string modeNumber2String(const size_t& modeNumber) {
   // build the map from mode number to name
   std::map<size_t, std::string> modeToName;
   modeToName[FLY] = "FLY";
-  modeToName[RF] = "RF";
   modeToName[LF] = "LF";
+  modeToName[RF] = "RF";
   modeToName[STANCE] = "STANCE";
 
   return modeToName[modeNumber];
@@ -124,8 +124,8 @@ inline size_t string2ModeNumber(const std::string& modeString) {
   // build the map from name to mode number
   std::map<std::string, size_t> nameToMode;
   nameToMode["FLY"] = FLY;
-  nameToMode["RF"] = RF;
   nameToMode["LF"] = LF;
+  nameToMode["RF"] = RF;
   nameToMode["STANCE"] = STANCE;
 
   return nameToMode[modeString];

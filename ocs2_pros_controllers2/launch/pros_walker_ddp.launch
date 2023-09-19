@@ -2,39 +2,49 @@
 
 <launch>
     <!-- visualization config -->
-    <arg name="rviz"               default="true" />
-    <arg name="description_name"   default="legged_robot_description"/>
-    <arg name="multiplot"          default="false"/>
+    <arg name = "rviz"               default    = "true" />
+    <arg name = "description_name"   default    = "legged_robot_description"/>
+    <arg name = "multiplot"          default    = "false"/>
+    <arg name = "publish_gait"          default = "true"/>
+    <arg name = "start_dummy"          default  = "true"/>
+
 
     <!-- The task file for the mpc. -->
-    <arg name="taskFile"          default="$(find ocs2_pros_controllers2)/config/mpc/task.info"/>
+    <arg name = "taskFile"          default = "$(find ocs2_pros_controllers2)/config/mpc/task.info"/>
     <!-- The reference related config file of the robot -->
-    <arg name="referenceFile"     default="$(find ocs2_pros_controllers2)/config/reference.info"/>
+    <arg name = "referenceFile"     default = "$(find ocs2_pros_controllers2)/config/reference.info"/>
     <!-- The URDF model of the robot -->
-    <arg name="urdfFile"          default="$(find ocs2_pros_gazebo2)/urdf/pros_walker.urdf"/>
+    <arg name = "urdfFile"          default = "$(find ocs2_pros_gazebo2)/urdf/pros_walker.urdf"/>
     <!-- The file defining gait definition -->
-    <arg name="gaitCommandFile"   default="$(find ocs2_pros_controllers2)/config/gait.info"/>
+    <arg name = "gaitCommandFile"   default = "$(find ocs2_pros_controllers2)/config/gait.info"/>
 
     <!-- rviz -->
-    <group if="$(arg rviz)">
-      <param name="$(arg description_name)" textfile="$(arg urdfFile)"/>
-      <arg name="rvizconfig" default="$(find ocs2_pros_gazebo2)/rviz/legged_robot.rviz" />
-      <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rvizconfig)" output="screen" />
+    <group if         = "$(arg rviz)">
+    <param name       = "$(arg description_name)" textfile = "$(arg urdfFile)"/>
+    <arg   name       = "rvizconfig" default               = "$(find ocs2_pros_gazebo2)/rviz/pros_walker.rviz" />
+    <node  pkg        = "rviz" type                        = "rviz" name                  = "rviz" args = "-d $(arg rvizconfig)" output = "screen" />
+    <!--   <node name = "joint_state_publisher" pkg        = "joint_state_publisher" type = "joint_state_publisher" />
+    <node  name       = "robot_state_publisher" pkg        = "robot_state_publisher" type = "robot_state_publisher" /> -->
     </group>
 
-    <!-- multiplot -->
-    <group if="$(arg multiplot)">
-      <include file="$(find ocs2_legged_robot_ros)/launch/multiplot.launch"/>
-    </group>
 
     <!-- make the files into global parameters -->
-    <param name="multiplot"         value="$(arg multiplot)"/>
-    <param name="taskFile"          value="$(arg taskFile)" />
-    <param name="referenceFile"     value="$(arg referenceFile)" />
-    <param name="urdfFile"          value="$(arg urdfFile)" />
-    <param name="gaitCommandFile"   value="$(arg gaitCommandFile)"/>
-    <!-- <node pkg="ocs2_pros_controllers2" type="pros_walker_ddp_mpc" name="pros_walker_ddp_mpc"
-          output="screen" launch-prefix=""/> -->
-    <node pkg="ocs2_pros_controllers2" type="pros_walker_dummy" name="pros_walker_dummy"
-          output="screen" launch-prefix=""/>
+    <param name   = "multiplot"         value     = "$(arg multiplot)"/>
+    <param name   = "taskFile"          value     = "$(arg taskFile)" />
+    <param name   = "referenceFile"     value     = "$(arg referenceFile)" />
+    <param name   = "urdfFile"          value     = "$(arg urdfFile)" />
+    <param name   = "gaitCommandFile"   value     = "$(arg gaitCommandFile)"/>
+    <node  pkg    = "ocs2_pros_controllers2" type = "pros_walker_sqp_mpc" name = "pros_walker_ddp_mpc"
+           output = "screen" launch-prefix        = ""/>
+      
+      <group if     = "$(arg start_dummy)">
+      <node  pkg    = "ocs2_pros_controllers2" type = "pros_walker_dummy" name = "pros_walker_dummy"
+             output = "screen" launch-prefix        = "gnome-terminal --"/>
+      </group>
+      <group if     = "$(arg publish_gait)">
+      <node  pkg    = "ocs2_pros_controllers2" type = "pros_walker_target" name       = "pros_walker_target"
+             output = "screen" launch-prefix        = "gnome-terminal --"/>
+      <node  pkg    = "ocs2_pros_controllers2" type = "pros_walker_gait_command" name = "pros_walker_gait_command"
+             output = "screen" launch-prefix        = "gnome-terminal --"/>
+      </group>
 </launch>

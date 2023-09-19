@@ -119,15 +119,16 @@ void LeggedRobotInterface::setupOptimalConrolProblem(const std::string& taskFile
   // CentroidalModelInfo
   // Default Joint State: Remove DOF of base
   centroidalModelInfo_ = centroidal_model::createCentroidalModelInfo(
-      *pinocchioInterfacePtr_, centroidal_model::loadCentroidalType(taskFile),
-      centroidal_model::loadDefaultJointState(pinocchioInterfacePtr_->getModel().nq - 6, referenceFile), 
+      *pinocchioInterfacePtr_,
+      centroidal_model::loadCentroidalType(taskFile),
+      centroidal_model::loadDefaultJointState(pinocchioInterfacePtr_->getModel().nq - 6, referenceFile),
       modelSettings_.contactNames3DoF,
       modelSettings_.contactNames6DoF);
 
   // Swing trajectory planner
-  // 8 force point->8 feet
+  // 2 force point->2 feet
   auto swingTrajectoryPlanner =
-      std::make_unique<SwingTrajectoryPlanner>(loadSwingTrajectorySettings(taskFile, "swing_trajectory_config", verbose), 2);
+      std::make_unique<SwingTrajectoryPlanner>(loadSwingTrajectorySettings(taskFile, "swing_trajectory_config", verbose), 8);
 
   // Mode schedule manager
   referenceManagerPtr_ =

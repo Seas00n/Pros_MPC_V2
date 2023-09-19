@@ -39,7 +39,12 @@ namespace pros_walker {
 
 template <typename T>
 using feet_array_t = std::array<T, 8>;
+
+template <typename T>
+using fcone_array_t = std::array<T, 8>;
+
 using contact_flag_t = feet_array_t<bool>;
+
 
 using vector3_t = Eigen::Matrix<scalar_t, 3, 1>;
 using matrix3_t = Eigen::Matrix<scalar_t, 3, 3>;

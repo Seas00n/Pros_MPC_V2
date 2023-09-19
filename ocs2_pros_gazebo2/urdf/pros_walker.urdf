@@ -171,7 +171,7 @@
           </geometry>
         </collision>
     </link>
-    <link name="ltorso">
+    <!-- <link name="ltorso">
         <inertial>
             <mass value="1.92" />
             <origin xyz="-0.0112984 -3.15366e-06 0.0746835" rpy="0 -0 0" />
@@ -182,9 +182,9 @@
             <geometry>
                 <mesh filename="package://ocs2_pros_gazebo2/meshes/ltorso.dae" scale="1 1 1" />
             </geometry>
-        </visual>
-        <!-- this part is completely internal
-        <collision>
+        </visual> -->
+        <!-- this part is completely internal -->
+        <!-- <collision>
           <origin rpy="0 0 0" xyz="0 0 0.039762"/>
           <geometry>
             <cylinder radius="0.025918" length="0.076922"/>
@@ -202,9 +202,9 @@
             <cylinder radius="0.014828" length="0.020169"/>
           </geometry>
         </collision>
-        -->
-    </link>
-    <link name="mtorso">
+       
+    </link> -->
+    <!-- <link name="mtorso">
         <inertial>
             <mass value="0.55" />
             <origin xyz="-0.00816266 -0.0131245 0.0305974" rpy="0 -0 0" />
@@ -234,7 +234,7 @@
             <cylinder radius="0.015" length="0.02"/>
           </geometry>
         </collision>
-    </link>
+    </link> -->
     <link name="base">
         <visual>
             <origin xyz="0 0 0" rpy="0 -0 0" />
@@ -449,13 +449,11 @@
           </geometry>
         </collision>
     </link>
-    <link name="utorso">
+    <!-- <link name="utorso">
         <inertial>
             <mass value="18.484" />
             <origin xyz="0.02 -0.001 0.211" rpy="0 -0 0" />
-            <!--
             <inertia ixx="0.395" ixy="0" ixz="0.083" iyy="1.089" iyz="-0.003" izz="0.327" />
-            -->
             <inertia ixx="0.395" ixy="0" ixz="0.083" iyy="1.089" iyz="-0.003" izz="0.827" />
         </inertial>
         <visual>
@@ -482,17 +480,17 @@
             <cylinder radius="0.0363" length="0.22375"/>
           </geometry>
         </collision>
-    </link>
-    <joint name="back_lbz" type="revolute">
+    </link> -->
+    <!-- <joint name="back_lbz" type="revolute">
         <origin xyz="-0.0125 0 0" rpy="0 -0 0" />
         <axis xyz="0 0 1" />
-        <parent link="base" />
+        <parent link="base_inertia" />
         <child link="ltorso" />
         <dynamics damping="10" friction="0" />
         <limit effort="124.016" velocity="12" lower="-0.610865" upper="0.610865" />
         <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.6109" soft_upper_limit="10.6109" />
-    </joint>
-    <joint name="back_mby" type="revolute">
+    </joint> -->
+    <!-- <joint name="back_mby" type="revolute">
         <origin xyz="0 0 0.09" rpy="0 -0 0" />
         <axis xyz="0 1 0" />
         <parent link="ltorso" />
@@ -500,8 +498,8 @@
         <dynamics damping="10" friction="0" />
         <limit effort="206.843" velocity="12" lower="-1.2" upper="1.28" />
         <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.2" soft_upper_limit="11.28" />
-    </joint>
-    <joint name="back_ubx" type="revolute">
+    </joint> -->
+    <!-- <joint name="back_ubx" type="revolute">
         <origin xyz="0 0 0.05" rpy="0 -0 0" />
         <axis xyz="1 0 0" />
         <parent link="mtorso" />
@@ -509,7 +507,7 @@
         <dynamics damping="10" friction="0" />
         <limit effort="94.91" velocity="12" lower="-0.790809" upper="0.790809" />
         <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.7908" soft_upper_limit="10.7908" />
-    </joint>
+    </joint> -->
     <joint name="l_leg_kny" type="revolute">
         <origin xyz="-0.05 0 -0.374" rpy="0 -0 0" />
         <axis xyz="0 1 0" />
@@ -557,10 +555,11 @@
     </joint>
     <joint name="l_leg_uhz" type="revolute">
         <origin xyz="0 0.089 0" rpy="0 -0 0" />
-        <axis xyz="0 0 1" />
+        
         <parent link="base" />
         <child link="l_uglut" />
         <dynamics damping="1.0" friction="0" />
+        <axis xyz="0 0 1" />
         <limit effort="110" velocity="12" lower="-0.32" upper="1.14" />
         <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-10.32" soft_upper_limit="11.14" />
     </joint>
@@ -621,15 +620,82 @@
     </joint>
     <joint name="r_leg_uhz" type="revolute">
         <origin xyz="0 -0.089 0" rpy="0 -0 0" />
-        <axis xyz="0 0 1" />
         <parent link="base" />
         <child link="r_uglut" />
-        <dynamics damping="1.0" friction="0" />
+        <dynamics damping="1.0" friction="0" /> 
+        <axis xyz="0 0 1" />
         <limit effort="110" velocity="12" lower="-1.14" upper="0.32" />
         <safety_controller k_position="100" k_velocity="100" soft_lower_limit="-11.14" soft_upper_limit="10.32" />
     </joint>
 
-
+    <joint name="fp0_fixed_r_foot" type="fixed">
+        <parent link="r_foot"/>
+        <child link="fp0_r"/>
+        <origin rpy="0 0 0" xyz="0.05 0 -0.08"/>
+    </joint>
+    <!-- Foot link -->
+    <link name="fp0_r">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <!-- Adapter collision -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <!-- Foot collision -->
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link>
+    <joint name="fp0_fixed_l_foot" type="fixed">
+        <parent link="l_foot"/>
+        <child link="fp0_l"/>
+        <origin rpy="0 0 0" xyz="0.05 0 -0.08"/>
+    </joint>
+    <!-- Foot link -->
+    <link name="fp0_l">
+        <visual>
+           <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>
+        <!-- Adapter collision -->
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <!-- Foot collision -->
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <mass value="0.1"/>
+            <inertia ixx="4e-06" ixy="0" ixz="0" 
+                    iyy="4e-06" iyz="0" izz="4e-06"/>
+        </inertial>
+    </link>
     <joint name="fp1_fixed_r_foot" type="fixed">
         <parent link="r_foot"/>
         <child link="fp1_r"/>

@@ -3,5 +3,12 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": []
+    "configurations": [
+        {
+            "name": "ROS: Launch",
+            "type": "ros",
+            "request": "launch",
+            "target": "/home/yuxuan/Downloads/ocs2_ws/src/Pros_MPC_V2/ocs2_pros_controllers2/launch/pros_walker_ddp.launch"
+        }
+    ]
 }

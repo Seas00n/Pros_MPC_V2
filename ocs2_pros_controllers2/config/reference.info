@@ -5,16 +5,18 @@ comHeight                           0.925
 
 defaultJointState
 {
-  (0,0) 0   ; r_leg_lax
-  (1,0) 0   ; r_leg_uay
-  (2,0) 0   ; r_leg_kny
-  (3,0) 0   ; r_leg_lhy
-  (4,0) 0   ; r_leg_mhx
+  (0,0) 0   ; l_leg_uhz
+  (1,0) 0   ; l_leg_mhx
+  (2,0) 0   ; l_leg_lhy
+  (3,0) 0   ; l_leg_kny
+  (4,0) 0   ; l_leg_uay
   (5,0) 0   ; l_leg_lax
-  (6,0) 0   ; l_leg_uay
-  (7,0) 0   ; l_leg_kny
-  (8,0) 0   ; l_leg_lhy
-  (9,0) 0   ; l_leg_mhx
+  (6,0) 0   ; r_leg_uhz
+  (7,0) 0   ; r_leg_mhx
+  (8,0) 0   ; r_leg_lhy
+  (9,0) 0   ; r_leg_kny
+  (10,0) 0  ; r_leg_uay
+  (11,0) 0  ; r_leg_lax 
 }
 
 initialModeSchedule
@@ -26,7 +28,7 @@ initialModeSchedule
   }
   eventTimes
   {
-    [0]  0.5
+    [0]  0.2
   }
 }
 
@@ -39,6 +41,6 @@ defaultModeSequenceTemplate
   switchingTimes
   {
     [0]  0.0
-    [1]  1.0
+    [1]  0.5
   }
 }

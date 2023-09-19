@@ -78,7 +78,7 @@ void LeggedRobotPreComputation::request(RequestSet request, scalar_t t, const ve
     }
     return config;
   };
-
+  
   if (request.contains(Request::Constraint)) {
     for (size_t i = 0; i < info_.numThreeDofContacts; i++) {
       eeNormalVelConConfigs_[i] = eeNormalVelConConfig(i);

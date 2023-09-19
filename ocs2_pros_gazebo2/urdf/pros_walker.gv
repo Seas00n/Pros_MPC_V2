@@ -1,29 +1,33 @@
 digraph G {
 node [shape=box];
-"pelvis" [label="pelvis"];
-"ltorso" [label="ltorso"];
-"mtorso" [label="mtorso"];
-"utorso" [label="utorso"];
+"base" [label="base"];
+"base_inertia" [label="base_inertia"];
 "l_uglut" [label="l_uglut"];
 "l_lglut" [label="l_lglut"];
 "l_uleg" [label="l_uleg"];
 "l_lleg" [label="l_lleg"];
 "l_talus" [label="l_talus"];
 "l_foot" [label="l_foot"];
+"fp0_l" [label="fp0_l"];
+"fp1_l" [label="fp1_l"];
+"fp2_l" [label="fp2_l"];
+"fp3_l" [label="fp3_l"];
+"fp4_l" [label="fp4_l"];
 "r_uglut" [label="r_uglut"];
 "r_lglut" [label="r_lglut"];
 "r_uleg" [label="r_uleg"];
 "r_lleg" [label="r_lleg"];
 "r_talus" [label="r_talus"];
 "r_foot" [label="r_foot"];
+"fp0_r" [label="fp0_r"];
+"fp1_r" [label="fp1_r"];
+"fp2_r" [label="fp2_r"];
+"fp3_r" [label="fp3_r"];
+"fp4_r" [label="fp4_r"];
 node [shape=ellipse, color=blue, fontcolor=blue];
-"pelvis" -> "back_lbz" [label="xyz: -0.0125 0 0 \nrpy: 0 -0 0"]
-"back_lbz" -> "ltorso"
-"ltorso" -> "back_mby" [label="xyz: 0 0 0.09 \nrpy: 0 -0 0"]
-"back_mby" -> "mtorso"
-"mtorso" -> "back_ubx" [label="xyz: 0 0 0.05 \nrpy: 0 -0 0"]
-"back_ubx" -> "utorso"
-"pelvis" -> "l_leg_uhz" [label="xyz: 0 0.089 0 \nrpy: 0 -0 0"]
+"base" -> "base_to_base_inertia" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"base_to_base_inertia" -> "base_inertia"
+"base" -> "l_leg_uhz" [label="xyz: 0 0.089 0 \nrpy: 0 -0 0"]
 "l_leg_uhz" -> "l_uglut"
 "l_uglut" -> "l_leg_mhx" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
 "l_leg_mhx" -> "l_lglut"
@@ -35,7 +39,17 @@ node [shape=ellipse, color=blue, fontcolor=blue];
 "l_leg_uay" -> "l_talus"
 "l_talus" -> "l_leg_lax" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
 "l_leg_lax" -> "l_foot"
-"pelvis" -> "r_leg_uhz" [label="xyz: 0 -0.089 0 \nrpy: 0 -0 0"]
+"l_foot" -> "fp0_fixed_l_foot" [label="xyz: 0.05 0 -0.08 \nrpy: 0 -0 0"]
+"fp0_fixed_l_foot" -> "fp0_l"
+"l_foot" -> "fp1_fixed_l_foot" [label="xyz: 0.18 0.03 -0.08 \nrpy: 0 -0 0"]
+"fp1_fixed_l_foot" -> "fp1_l"
+"l_foot" -> "fp2_fixed_l_foot" [label="xyz: 0.18 -0.03 -0.08 \nrpy: 0 -0 0"]
+"fp2_fixed_l_foot" -> "fp2_l"
+"l_foot" -> "fp3_fixed_l_foot" [label="xyz: -0.08 0.035 -0.08 \nrpy: 0 -0 0"]
+"fp3_fixed_l_foot" -> "fp3_l"
+"l_foot" -> "fp4_fixed_l_foot" [label="xyz: -0.08 -0.035 -0.08 \nrpy: 0 -0 0"]
+"fp4_fixed_l_foot" -> "fp4_l"
+"base" -> "r_leg_uhz" [label="xyz: 0 -0.089 0 \nrpy: 0 -0 0"]
 "r_leg_uhz" -> "r_uglut"
 "r_uglut" -> "r_leg_mhx" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
 "r_leg_mhx" -> "r_lglut"
@@ -47,4 +61,14 @@ node [shape=ellipse, color=blue, fontcolor=blue];
 "r_leg_uay" -> "r_talus"
 "r_talus" -> "r_leg_lax" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
 "r_leg_lax" -> "r_foot"
+"r_foot" -> "fp0_fixed_r_foot" [label="xyz: 0.05 0 -0.08 \nrpy: 0 -0 0"]
+"fp0_fixed_r_foot" -> "fp0_r"
+"r_foot" -> "fp1_fixed_r_foot" [label="xyz: 0.18 0.03 -0.08 \nrpy: 0 -0 0"]
+"fp1_fixed_r_foot" -> "fp1_r"
+"r_foot" -> "fp2_fixed_r_foot" [label="xyz: 0.18 -0.03 -0.08 \nrpy: 0 -0 0"]
+"fp2_fixed_r_foot" -> "fp2_r"
+"r_foot" -> "fp3_fixed_r_foot" [label="xyz: -0.08 0.035 -0.08 \nrpy: 0 -0 0"]
+"fp3_fixed_r_foot" -> "fp3_r"
+"r_foot" -> "fp4_fixed_r_foot" [label="xyz: -0.08 -0.035 -0.08 \nrpy: 0 -0 0"]
+"fp4_fixed_r_foot" -> "fp4_r"
 }

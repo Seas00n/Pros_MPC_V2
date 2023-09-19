@@ -1,4 +1,4 @@
-centroidalModelType             0      // 0: FullCentroidalDynamics, 1: Single Rigid Body Dynamics
+centroidalModelType             1      // 0: FullCentroidalDynamics, 1: Single Rigid Body Dynamics
   
 legged_robot_interface
 {
@@ -9,21 +9,21 @@ legged_robot_interface
 
 model_settings
 {
-  positionErrorGain             0.0 ; 20.0
-  phaseTransitionStanceTime     0.4
+  positionErrorGain             0 ; 20.0
+  phaseTransitionStanceTime     1
 
   verboseCppAd                  true
-  recompileLibrariesCppAd       true
+  recompileLibrariesCppAd       false
   modelFolderCppAd              /tmp/pros_walker
 }
 
 swing_trajectory_config
 {
-  liftOffVelocity               0.2
-  touchDownVelocity            -0.4
-  swingHeight                   0.1
-  touchdownAfterHorizon         0.2
-  swingTimeScale                0.15
+  liftOffVelocity               0.05
+  touchDownVelocity            -0.05
+  swingHeight                   0.05
+  touchdownAfterHorizon         0.1
+  swingTimeScale                1
 }
 
 ; Multiple_Shooting SQP settings
@@ -136,7 +136,7 @@ mpc
   solutionTimeWindow              -1   ; maximum [s]
   coldStart                       false
 
-  debugPrint                      false
+  debugPrint                      true
 
   mpcDesiredFrequency             50  ; [Hz]
   mrtDesiredFrequency             400 ; [Hz]
@@ -161,16 +161,18 @@ initialState
    (11,0) 0.0     ; theta_base_x
 
    ;; Leg Joint Positions: [LF, LH, RF, RH] ;;
-   (12,0) 0   ; r_leg_lax
-   (13,0) 0   ; r_leg_uay
-   (14,0) 0   ; r_leg_kny
-   (15,0) 0   ; r_leg_lhy
-   (16,0) 0   ; r_leg_mhx
+   (12,0) 0   ; l_leg_uhz
+   (13,0) 0   ; l_leg_mhx
+   (14,0) 0   ; l_leg_lhy
+   (15,0) 0   ; l_leg_kny
+   (16,0) 0   ; l_leg_uay
    (17,0) 0   ; l_leg_lax
-   (18,0) 0   ; l_leg_uay
-   (19,0) 0   ; l_leg_kny
-   (20,0) 0   ; l_leg_lhy
-   (21,0) 0   ; l_leg_mhx
+   (18,0) 0   ; r_leg_uhz
+   (19,0) 0   ; r_leg_mhx
+   (20,0) 0   ; r_leg_lhy
+   (21,0) 0   ; r_leg_kny
+   (22,0) 0   ; r_leg_uay
+   (23,0) 0   ; r_leg_lax 
 }
 
 ; standard state weight matrix
@@ -179,32 +181,34 @@ Q
   scaling 1e+0
 
   ;; Normalized Centroidal Momentum: [linear, angular] ;;
-  (0,0)   15.0     ; vcom_x
-  (1,1)   15.0     ; vcom_y
-  (2,2)   30.0     ; vcom_z
-  (3,3)   5.0      ; L_x / robotMass
-  (4,4)   10.0     ; L_y / robotMass
-  (5,5)   10.0     ; L_z / robotMass
+  (0,0)   150.0     ; vcom_x
+  (1,1)   150.0     ; vcom_y
+  (2,2)   300.0     ; vcom_z
+  (3,3)   50.0      ; L_x / robotMass
+  (4,4)   100.0     ; L_y / robotMass
+  (5,5)   100.0     ; L_z / robotMass
 
   ;; Base Pose: [position, orientation] ;;
-  (6,6)   500.0    ; p_base_x
-  (7,7)   500.0    ; p_base_y
-  (8,8)   500.0    ; p_base_z
-  (9,9)   100.0    ; theta_base_z
-  (10,10) 200.0    ; theta_base_y
-  (11,11) 200.0    ; theta_base_x
+  (6,6)   600.0    ; p_base_x
+  (7,7)   600.0    ; p_base_y
+  (8,8)   600.0    ; p_base_z
+  (9,9)   300.0    ; theta_base_z
+  (10,10) 500.0    ; theta_base_y
+  (11,11) 500.0    ; theta_base_x
 
   ;; Leg Joint Positions: [LF, LH, RF, RH] ;;
-  (12,12) 20   ; r_leg_lax
-  (13,13) 20   ; r_leg_uay
-  (14,14) 20   ; r_leg_kny
-  (15,15) 20   ; r_leg_lhy
-  (16,16) 20   ; r_leg_mhx
+  (12,12) 20   ; l_leg_uhz
+  (13,13) 20   ; l_leg_mhx
+  (14,14) 20   ; l_leg_lhy
+  (15,15) 20   ; l_leg_kny
+  (16,16) 20   ; l_leg_uay
   (17,17) 20   ; l_leg_lax
-  (18,18) 20   ; l_leg_uay
-  (19,19) 20   ; l_leg_kny
-  (20,20) 20   ; l_leg_lhy
-  (21,21) 20   ; l_leg_mhx
+  (18,18) 20   ; r_leg_uhz
+  (19,19) 20   ; r_leg_mhx
+  (20,20) 20   ; r_leg_lhy
+  (21,21) 20   ; r_leg_kny
+  (22,22) 20   ; r_leg_uay
+  (23,23) 20   ; r_leg_lax 
 }
 
 ; control weight matrix
@@ -215,18 +219,54 @@ R
   ;; Feet Contact Forces: [LF, RF, LH, RH] ;;
   
   ;; foot velocity relative to base: [LF, LH, RF, RH] (uses the Jacobian at nominal configuration) ;;
-  (0,0) 5; f1_r
-  (1,1) 5; f1_r
-  (2,2) 5; f1_r
-  (3,3) 5; f1_l
-  (4,4) 5; f1_l
-  (5,5) 5; f1_l
-  (6,6) 5000; x
-  (7,7) 5000; y
-  (8,8) 5000; z
-  (9,9) 5000; x
-  (10,10) 5000; y
-  (11,11) 5000; z
+  (0,0) 5; f1_l
+  (1,1) 5; f1_l
+  (2,2) 5; f1_l
+  (3,3) 5; f2_l
+  (4,4) 5; f2_l
+  (5,5) 5; f2_l
+  (6,6) 5; f3_l
+  (7,7) 5; f3_l
+  (8,8) 5; f3_l
+  (9,9) 5; f4_l
+  (10,10) 5; f4_l
+  (11,11) 5; f4_l
+  (12,12) 5; f1_r
+  (13,13) 5; f1_r
+  (14,14) 5; f1_r
+  (15,15) 5; f2_r
+  (16,16) 5; f2_r
+  (17,17) 5; f2_r
+  (18,18) 5; f3_r
+  (19,19) 5; f3_r
+  (20,20) 5; f3_r
+  (21,21) 5; f4_r
+  (22,22) 5; f4_r
+  (23,23) 5; f4_r
+  (24,24) 5000; x
+  (25,25) 5000; y
+  (26,26) 5000; z
+  (27,27) 5000; x
+  (28,28) 5000; y
+  (29,29) 5000; z
+  (30,30) 5000; x
+  (31,31) 5000; y
+  (32,32) 5000; z
+  (33,33) 5000; x
+  (34,34) 5000; y
+  (35,35) 5000; z
+  (36,36) 5000; x
+  (37,37) 5000; y
+  (38,38) 5000; z
+  (39,39) 5000; x
+  (40,40) 5000; y
+  (41,41) 5000; z
+  (42,42) 5000; x
+  (43,43) 5000; y
+  (44,44) 5000; z
+  (45,45) 5000; x
+  (46,46) 5000; y
+  (47,47) 5000; z
 }
 
 frictionConeSoftConstraint

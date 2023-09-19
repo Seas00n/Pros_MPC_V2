@@ -75,14 +75,14 @@ LeggedRobotVisualizer::LeggedRobotVisualizer(PinocchioInterface pinocchioInterfa
 void LeggedRobotVisualizer::launchVisualizerNode(ros::NodeHandle& nodeHandle) {
   costDesiredBasePositionPublisher_ = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredBaseTrajectory", 1);
   costDesiredFeetPositionPublishers_.resize(centroidalModelInfo_.numThreeDofContacts);
-  costDesiredFeetPositionPublishers_[0] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f1_r", 1);
-  costDesiredFeetPositionPublishers_[1] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f2_r", 1);
-  costDesiredFeetPositionPublishers_[2] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f3_r", 1);
-  costDesiredFeetPositionPublishers_[3] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f4_r", 1);
   costDesiredFeetPositionPublishers_[0] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f1_l", 1);
   costDesiredFeetPositionPublishers_[1] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f2_l", 1);
   costDesiredFeetPositionPublishers_[2] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f3_l", 1);
   costDesiredFeetPositionPublishers_[3] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f4_l", 1);
+  costDesiredFeetPositionPublishers_[4] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f1_r", 1);
+  costDesiredFeetPositionPublishers_[5] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f2_r", 1);
+  costDesiredFeetPositionPublishers_[6] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f3_r", 1);
+  costDesiredFeetPositionPublishers_[7] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/f4_r", 1);
   stateOptimizedPublisher_ = nodeHandle.advertise<visualization_msgs::MarkerArray>("/legged_robot/optimizedStateTrajectory", 1);
   currentStatePublisher_ = nodeHandle.advertise<visualization_msgs::MarkerArray>("/legged_robot/currentState", 1);
 
@@ -145,16 +145,18 @@ void LeggedRobotVisualizer::publishObservation(ros::Time timeStamp, const System
 void LeggedRobotVisualizer::publishJointTransforms(ros::Time timeStamp, const vector_t& jointAngles) const {
   if (robotStatePublisherPtr_ != nullptr) {
     std::map<std::string, scalar_t> jointPositions{
-        {"r_leg_lax", jointAngles[0]},
-        {"r_leg_uay", jointAngles[1]},
-        {"r_leg_uay", jointAngles[2]},
-        {"r_leg_kny", jointAngles[3]},
-        {"r_leg_lhy", jointAngles[4]},
+        {"l_leg_uhz", jointAngles[0]},
+        {"l_leg_mhx", jointAngles[1]},
+        {"l_leg_lhy", jointAngles[2]},
+        {"l_leg_kny", jointAngles[3]},
+        {"l_leg_uay", jointAngles[4]},
         {"l_leg_lax", jointAngles[5]},
-        {"l_leg_uay", jointAngles[6]},
-        {"l_leg_uay", jointAngles[7]},
-        {"l_leg_kny", jointAngles[8]},
-        {"l_leg_lhy", jointAngles[9]},
+        {"r_leg_uhz", jointAngles[6]},
+        {"r_leg_mhx", jointAngles[7]},
+        {"r_leg_lhy", jointAngles[8]},
+        {"r_leg_kny", jointAngles[9]},
+        {"r_leg_uay", jointAngles[10]},
+        {"r_leg_lax", jointAngles[11]},
     };
     robotStatePublisherPtr_->publishTransforms(jointPositions, timeStamp);
   }
@@ -327,8 +329,7 @@ void LeggedRobotVisualizer::publishOptimizedStateTrajectory(ros::Time timeStamp,
 
   // Convert feet msgs to Array message
   visualization_msgs::MarkerArray markerArray;
-  markerArray.markers.reserve(centroidalModelInfo_.numThreeDofContacts +
-                              2);  // 1 trajectory per foot + 1 for the future footholds + 1 for the com trajectory
+  markerArray.markers.reserve(centroidalModelInfo_.numThreeDofContacts +2);  // 1 trajectory per foot + 1 for the future footholds + 1 for the com trajectory
   for (size_t i = 0; i < centroidalModelInfo_.numThreeDofContacts; i++) {
     markerArray.markers.emplace_back(getLineMsg(std::move(feetMsgs[i]), feetColorMap_[i], trajectoryLineWidth_));
     markerArray.markers.back().ns = "EE Trajectories";
