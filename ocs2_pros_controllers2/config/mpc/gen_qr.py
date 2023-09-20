@@ -2,8 +2,8 @@ import numpy as np
 
 if __name__ == "__main__":
     #R
-    r_f = 5
-    r_v = 5000
+    r_f = 10
+    r_v = 500
     count = 1
     num_point = 8
     for i in range(num_point):

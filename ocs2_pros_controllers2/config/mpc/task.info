@@ -9,7 +9,7 @@ legged_robot_interface
 
 model_settings
 {
-  positionErrorGain             0 ; 20.0
+  positionErrorGain             20 ; 20.0
   phaseTransitionStanceTime     1
 
   verboseCppAd                  true
@@ -19,11 +19,11 @@ model_settings
 
 swing_trajectory_config
 {
-  liftOffVelocity               0.05
-  touchDownVelocity            -0.05
-  swingHeight                   0.05
-  touchdownAfterHorizon         0.1
-  swingTimeScale                1
+  liftOffVelocity               0.01
+  touchDownVelocity             -0.01
+  swingHeight                   0.1
+  touchdownAfterHorizon         0.05
+  swingTimeScale                1.2
 }
 
 ; Multiple_Shooting SQP settings
