@@ -1,4 +1,4 @@
-centroidalModelType             1      // 0: FullCentroidalDynamics, 1: Single Rigid Body Dynamics
+centroidalModelType             0      // 0: FullCentroidalDynamics, 1: Single Rigid Body Dynamics
   
 legged_robot_interface
 {
@@ -9,7 +9,7 @@ legged_robot_interface
 
 model_settings
 {
-  positionErrorGain             20 ; 20.0
+  positionErrorGain             100 ; 20.0
   phaseTransitionStanceTime     1
 
   verboseCppAd                  true
@@ -19,11 +19,11 @@ model_settings
 
 swing_trajectory_config
 {
-  liftOffVelocity               0.01
-  touchDownVelocity             -0.01
+  liftOffVelocity               0.05
+  touchDownVelocity             -0.05
   swingHeight                   0.1
-  touchdownAfterHorizon         0.05
-  swingTimeScale                1.2
+  touchdownAfterHorizon         0.1
+  swingTimeScale                1.0
 }
 
 ; Multiple_Shooting SQP settings
@@ -271,8 +271,7 @@ R
 
 frictionConeSoftConstraint
 {
-  frictionCoefficient    0.5
-  
+  frictionCoefficient    0.7  
   ; relaxed log barrier parameters
   mu                     0.1
   delta                  5.0

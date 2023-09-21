@@ -81,6 +81,16 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        fp0_l:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        fp0_r:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         fp1_l:
           Alpha: 1
           Show Axes: false
@@ -198,6 +208,10 @@ Visualization Manager:
           Value: false
         base_inertia:
           Value: false
+        fp0_l:
+          Value: true
+        fp0_r:
+          Value: true
         fp1_l:
           Value: true
         fp1_r:
@@ -226,6 +240,8 @@ Visualization Manager:
           Value: true
         l_uleg:
           Value: true
+        odom:
+          Value: true
         r_foot:
           Value: true
         r_lglut:
@@ -238,46 +254,49 @@ Visualization Manager:
           Value: true
         r_uleg:
           Value: true
-        odom:
-          Value: true
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: false
-      Show Names: true
+      Show Names: false
       Tree:
         odom:
           base:
             base_inertia:
-              l_uglut:
-                l_lglut:
-                  l_uleg:
-                    l_lleg:
-                      l_talus:
-                        l_foot:
-                          fp1_l:
-                            {}
-                          fp2_l:
-                            {}
-                          fp3_l:
-                            {}
-                          fp4_l:
-                            {}
-              r_uglut:
-                r_lglut:
-                  r_uleg:
-                    r_lleg:
-                      r_talus:
-                        r_foot:
-                          fp1_r:
-                            {}
-                          fp2_r:
-                            {}
-                          fp3_r:
-                            {}
-                          fp4_r:
-                            {}
+              {}
+            l_uglut:
+              l_lglut:
+                l_uleg:
+                  l_lleg:
+                    l_talus:
+                      l_foot:
+                        fp0_l:
+                          {}
+                        fp1_l:
+                          {}
+                        fp2_l:
+                          {}
+                        fp3_l:
+                          {}
+                        fp4_l:
+                          {}
+            r_uglut:
+              r_lglut:
+                r_uleg:
+                  r_lleg:
+                    r_talus:
+                      r_foot:
+                        fp0_r:
+                          {}
+                        fp1_r:
+                          {}
+                        fp2_r:
+                          {}
+                        fp3_r:
+                          {}
+                        fp4_r:
+                          {}
       Update Interval: 0
       Value: true
     - Class: rviz/MarkerArray
@@ -285,7 +304,9 @@ Visualization Manager:
       Marker Topic: /legged_robot/optimizedStateTrajectory
       Name: Optimized State Trajectory
       Namespaces:
-        {}
+        CoM Trajectory: true
+        EE Trajectories: true
+        Future footholds: true
       Queue Size: 100
       Value: true
     - Class: rviz/MarkerArray
@@ -293,7 +314,10 @@ Visualization Manager:
       Marker Topic: /legged_robot/currentState
       Name: Current State
       Namespaces:
-        {}
+        Center of Pressure: true
+        EE Forces: true
+        EE Positions: true
+        Support Polygon: true
       Queue Size: 100
       Value: true
     - Class: rviz/Group
@@ -339,7 +363,7 @@ Visualization Manager:
           Marker Topic: /legged_robot/desiredBaseTrajectory
           Name: Target Base Trajectory
           Namespaces:
-            {}
+            "": true
           Queue Size: 100
           Value: true
       Enabled: true
@@ -391,7 +415,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.950650691986084
+      Distance: 4.097863674163818
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -407,9 +431,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.31539878249168396
+      Pitch: 0.19539886713027954
       Target Frame: <Fixed Frame>
-      Yaw: 3.3067638874053955
+      Yaw: 5.286773204803467
     Saved: ~
 Window Geometry:
   Displays:
