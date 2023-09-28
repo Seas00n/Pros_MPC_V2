@@ -71,6 +71,21 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        find_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        fp0_l:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        fp0_r:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         fp1_l:
           Alpha: 1
           Show Axes: false
@@ -141,16 +156,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        ltorso:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        mtorso:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         r_foot:
           Alpha: 1
           Show Axes: false
@@ -181,12 +186,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        utorso:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -237,9 +236,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.02039800025522709
+      Pitch: -0.36460188031196594
       Target Frame: <Fixed Frame>
-      Yaw: 6.273590087890625
+      Yaw: 0.05539195239543915
     Saved: ~
 Window Geometry:
   Displays:

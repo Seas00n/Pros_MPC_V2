@@ -1,21 +1,21 @@
 targetDisplacementVelocity          0.5;
 targetRotationVelocity              0.3;
 
-comHeight                           0.925
+comHeight                           0.85
 
 defaultJointState
 {
-  (0,0) 0   ; l_leg_uhz
+  (0,0) 0.08   ; l_leg_uhz
   (1,0) 0   ; l_leg_mhx
-  (2,0) 0   ; l_leg_lhy
-  (3,0) 0   ; l_leg_kny
-  (4,0) 0   ; l_leg_uay
+  (2,0) -0.51   ; l_leg_lhy
+  (3,0) 1   ; l_leg_kny
+  (4,0) -0.49   ; l_leg_uay
   (5,0) 0   ; l_leg_lax
-  (6,0) 0   ; r_leg_uhz
+  (6,0) -0.08   ; r_leg_uhz
   (7,0) 0   ; r_leg_mhx
-  (8,0) 0   ; r_leg_lhy
-  (9,0) 0   ; r_leg_kny
-  (10,0) 0  ; r_leg_uay
+  (8,0) -0.51   ; r_leg_lhy
+  (9,0) 1   ; r_leg_kny
+  (10,0) -0.49  ; r_leg_uay
   (11,0) 0  ; r_leg_lax 
 }
 
